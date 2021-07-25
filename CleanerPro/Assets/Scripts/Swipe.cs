@@ -5,19 +5,22 @@ using UnityEngine;
 public class Swipe : MonoBehaviour
 {
     public Rigidbody2D personRB;
-    public float speed = 1;
+    public float speed = 1; //скорость движения
+   
+    bool isTraveling; //движется ли персонаж
+    Vector2 travel, //направление движения
+            nextPosition;
 
-    bool isTraveling;
-    Vector2 travel, nextPosition;
-
-    int minSwipe = 500;
+    int minSwipe = 500; //для распознавания свайпа
     Vector2 swipeLastPos, swipePos, swipe;
 
-    void FixedUpdate()
+    void Update()
     {
+        //перемещение объекта
         if (isTraveling)
-        personRB.velocity = speed * travel;
+            personRB.velocity = speed * travel;
 
+        //достиг ли препятствия
         if (nextPosition != Vector2.zero)
         {
             if (Vector2.Distance(transform.position, nextPosition) < 1f)
@@ -29,6 +32,7 @@ public class Swipe : MonoBehaviour
 
         }
 
+        //если персонаж уже движется, то код не выполняется дальше, пока объект не достигнет препятсвия
         if (isTraveling) return;
 
         if (Input.GetMouseButton(0))
@@ -46,12 +50,12 @@ public class Swipe : MonoBehaviour
 
                 if (swipe.x > -0.5f && swipe.x < 0.5)
                 {
-                    SetDestination(swipe.y > 0 ? Vector2.up : Vector2.down);
+                    SetDestination(swipe.y > 0 ? Vector2Int.down : Vector2Int.up);
                 }
 
                 if (swipe.y > -0.5f && swipe.y < 0.5)
                 {
-                    SetDestination(swipe.x > 0 ? Vector2.right : Vector2.left);
+                    SetDestination(swipe.x > 0 ? Vector2Int.right : Vector2Int.left);
                 }
             }
 
@@ -64,19 +68,12 @@ public class Swipe : MonoBehaviour
             swipe = Vector2.zero;
         }
 
+
     }
 
-    void SetDestination (Vector2 direction)
+    void SetDestination (Vector2Int direction)
     {
-        travel = direction;
-
-        RaycastHit2D hit = Physics2D.Linecast(transform.position, direction, 1);
-
-        if (hit)
-        {
-            nextPosition = hit.point;
-        }
-
-        isTraveling = true;
+        Person.Instance.Move(direction);
     }
+
 }
