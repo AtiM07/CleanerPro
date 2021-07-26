@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2812923098755782330}
   - component: {fileID: 8646474218981328062}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: personBear (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 1932029746990889007}
   - component: {fileID: 6596577267673900094}
   - component: {fileID: 4657429233764137805}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: broom (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -200,7 +200,7 @@ GameObject:
   - component: {fileID: 4938717974135476123}
   - component: {fileID: 4011446025439003115}
   - component: {fileID: 2250953156808993747}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: broom (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -307,7 +307,7 @@ GameObject:
   - component: {fileID: 5874987129339157073}
   - component: {fileID: 550694358141735900}
   - component: {fileID: 5542902653403713862}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: broom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -413,7 +413,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1523711032646981698}
   - component: {fileID: 5686765218455135188}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: person
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -428,8 +428,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8884644800858259550}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 8.751642}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.192225, y: 1.192225, z: 1.192225}
   m_Children:
   - {fileID: 2812923098755782330}
   - {fileID: 5874987129339157073}
@@ -440,7 +440,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -0.5688125, y: 0.5688125}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5686765218455135188

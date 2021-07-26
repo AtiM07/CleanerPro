@@ -7,11 +7,19 @@ public class GameController : MonoBehaviour
 {
     public static GameController Instance;
     public static int Points { get; private set; }
+    public static int Level { get; private set; }
+
+    private int point = 10;
 
     [SerializeField]
-    private TextMeshProUGUI pointsText;
+    public TextMeshProUGUI pointsText;
     [SerializeField]
-    private TextMeshProUGUI resultText;
+    private TextMeshProUGUI lvlTxt;
+    [SerializeField]
+    private SpriteRenderer imgBgrd; 
+    [SerializeField]
+    private Camera colorBgrd;
+
 
     private void Awake()
     {
@@ -19,11 +27,32 @@ public class GameController : MonoBehaviour
             Instance = this;
     }
 
+    private void Start()
+    {
+        StartGame();
+    }
+
+    private void Update()
+    {
+        
+    }
+
+    private void GenerateBackground()
+    {
+        int i;
+        i = Random.Range(0, TypeManager.Instance.background.Length - 1);
+        imgBgrd.sprite = TypeManager.Instance.background[i].imgBgrd;
+        colorBgrd.backgroundColor = TypeManager.Instance.background[i].colorBgrd;
+    }
     public void StartGame()
     {
-        SetPoints(0);
-
+        //if (Level != 1)
+        //    AddPoints(point);
+        //else
+        //    AddPoints(0);
         Field.Instance.GenerateField();
+        GenerateBackground();
+
     }
     private void SetPoints( int points)
     {
@@ -34,14 +63,12 @@ public class GameController : MonoBehaviour
     {
         SetPoints(Points + points);
     }
-
-    public void Win()
-    {
-        resultText.text = "You win!";
+    public void NextLvl()
+    {        
+        AddPoints(point);
+        Level++;
+        pointsText.text = Points.ToString();
     }
 
-    public void CheckGameResult()
-    {
-
-    }
+    
 }

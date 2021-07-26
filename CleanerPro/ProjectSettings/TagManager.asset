@@ -12,7 +12,7 @@ TagManager:
   - 
   - Water
   - UI
-  - box
+  - person
   - 
   - 
   - 
@@ -41,4 +41,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: person
+    uniqueID: 2339222865
     locked: 0

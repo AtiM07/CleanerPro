@@ -19,16 +19,18 @@ public class Person : MonoBehaviour
         Y = y;
     }
 
-    private bool isTravelling = false;
+    private bool isTravelling;
     private Vector2Int currentPos;
 
     public void Move(Vector2Int direction)
     {
         currentPos = new Vector2Int(Instance.X, Instance.Y);
         StartCoroutine(DirectionCoroutine(direction));
+
+       
     }
 
-    private IEnumerator DirectionCoroutine(Vector2Int direction)
+    IEnumerator DirectionCoroutine(Vector2Int direction)
     {
         isTravelling = true;
         Vector2Int nextPos = currentPos + direction;
@@ -66,7 +68,7 @@ public class Person : MonoBehaviour
             //yield return MoveCoroutine(currentPos, nextPos, direction);
             //if (nextPos.x < Field.Instance.FieldSize && nextPos.y < Field.Instance.FieldSize)
             //{
-                Instance.transform.position = Field.Instance.field[nextPos.x, nextPos.y].transform.position;
+                Instance.transform.position = (Vector2)Field.Instance.field[nextPos.x, nextPos.y].transform.position;
                 Instance.X = Field.Instance.field[nextPos.x, nextPos.y].X;
                 Instance.Y = Field.Instance.field[nextPos.x, nextPos.y].Y;
             //}
@@ -83,12 +85,10 @@ public class Person : MonoBehaviour
                         nextCell = Field.Instance.field[nextPos.x, nextPos.y];
                 }
             }
-
-
-
         }
 
         isTravelling = false;
+        CheckClearCell();
     }
 
     //private IEnumerator MoveCoroutine(Vector2Int startPos, Vector2Int endPos, Vector2Int direction)
@@ -105,4 +105,22 @@ public class Person : MonoBehaviour
 
     //    yield break;
     //}
+
+    void CheckClearCell()
+    {
+        int trashCell = 0;
+        for (int x = 0; x < Field.Instance.FieldSize; x++)
+        {
+            for (int y = 0; y < Field.Instance.FieldSize; y++)
+            {
+                if (Field.Instance.field[x, y].Type == Cell.CellType.Trash)
+                    trashCell++;
+            }
+        }
+
+        if (trashCell == 0)
+            GameController.Instance.NextLvl();
+
+        
+    }
 }

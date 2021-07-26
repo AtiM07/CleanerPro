@@ -25,7 +25,7 @@ public class Cell : MonoBehaviour
 
     public void UpdateType(CellType type)
     {        
-        Sprite = (Type == CellType.Trash) ? TypeManager.Instance.Trash : (Type == CellType.Wall) ? TypeManager.Instance.Wall : TypeManager.Instance.None;
+        Sprite = (Type == CellType.Trash) ? TypeManager.Instance.Trash : ((Type == CellType.Wall) ? TypeManager.Instance.Wall : TypeManager.Instance.None);
         GetComponent<SpriteRenderer>().sprite = Sprite;
 
         if (this.Type != type)

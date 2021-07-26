@@ -6,7 +6,7 @@ public class Field : MonoBehaviour
 {
     public static Field Instance;
 
-    public float CellSize;
+    private float CellSize;
     public int FieldSize;
     public int WallCount;
 
@@ -31,10 +31,15 @@ public class Field : MonoBehaviour
     }
     private void CreateField()
     {
+               
         
         field = new Cell[FieldSize,FieldSize];
 
-        float fieldWidth = FieldSize * CellSize;
+        //float fieldWidth = FieldSize * CellSize  ;
+        float fieldWidth = (float) (Instance.rectTr.rect.width - 0.6);
+
+        CellSize = (float)(Instance.rectTr.rect.width - 0.6) / FieldSize;
+
         rectTr.sizeDelta = new Vector2(fieldWidth, fieldWidth);
 
         float startX = -(fieldWidth / 2) + (CellSize / 2);
@@ -102,8 +107,8 @@ public class Field : MonoBehaviour
 
         person.SetValue(field[i, j].X, field[i, j].Y);
         var position = new Vector2(field[i, j].transform.position.x, field[i, j].transform.position.y);
-        person.transform.localPosition = position;
-        person.transform.localScale = new Vector3(CellSize, CellSize, CellSize);
+        person.transform.localPosition = (Vector2)position;
+        person.transform.localScale = new Vector2(CellSize, CellSize);
         field[i, j].UpdateType(Cell.CellType.None);
     }
 }
