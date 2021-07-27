@@ -16,6 +16,7 @@ public class Person : MonoBehaviour
     public int X { get; private set; }
 
     public int Y { get; private set; }
+
     public void SetValue(int x, int y)
     {
         X = x;
@@ -23,7 +24,7 @@ public class Person : MonoBehaviour
     }
 
     private bool isTravelling;
-    private bool isWinner;
+    public bool isWinner;
     private Vector2Int currentPos;
 
     public void Move(Vector2Int direction)
@@ -130,6 +131,7 @@ public class Person : MonoBehaviour
         if (trashCell == 0 && !isWinner)
         {
             isWinner = true;
+            yield return new WaitForSeconds(0.05f);
             GameController.Instance.NextLvl();
             yield break;
         }

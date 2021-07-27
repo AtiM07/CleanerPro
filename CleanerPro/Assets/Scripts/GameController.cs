@@ -7,7 +7,7 @@ public class GameController : MonoBehaviour
 {
     public static GameController Instance;
     public static int Points { get; private set; }
-    public static int Level { get; private set; }
+    public static int Level { get; private set; } = 1;
 
     private int point = 10;
 
@@ -50,6 +50,7 @@ public class GameController : MonoBehaviour
         //    AddPoints(point);
         //else
         //    AddPoints(0);
+        Person.Instance.isWinner = false;
         Field.Instance.GenerateField();
         GenerateBackground();
     }
@@ -65,8 +66,10 @@ public class GameController : MonoBehaviour
     public void NextLvl()
     {
         Level++;
+        lvlTxt.text = "Уровень " + Level;
         AddPoints(point);
         pointsText.text = Points.ToString();
+        StartGame();
     }
     
 
