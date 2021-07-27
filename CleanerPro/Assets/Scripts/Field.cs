@@ -30,9 +30,7 @@ public class Field : MonoBehaviour
         GeneratePerson();
     }
     private void CreateField()
-    {
-               
-        
+    {             
         field = new Cell[FieldSize,FieldSize];
 
         //float fieldWidth = FieldSize * CellSize  ;
@@ -94,21 +92,21 @@ public class Field : MonoBehaviour
     }
 
     public void GeneratePerson()
-    {
-       
+    {       
         bool flag = true;
         int i = 0, j = 0;
         while (flag)
         {
-            i = Random.Range(0, FieldSize);
-            j = Random.Range(0, FieldSize);
+            i = Random.Range(0, FieldSize-1);
+            j = Random.Range(0, FieldSize-1);
             flag = field[i,j].Type == Cell.CellType.Trash ? false : true;
         }
 
         person.SetValue(field[i, j].X, field[i, j].Y);
+        field[i, j].UpdateType(Cell.CellType.None);
         var position = new Vector2(field[i, j].transform.position.x, field[i, j].transform.position.y);
         person.transform.localPosition = (Vector2)position;
         person.transform.localScale = new Vector2(CellSize, CellSize);
-        field[i, j].UpdateType(Cell.CellType.None);
+
     }
 }

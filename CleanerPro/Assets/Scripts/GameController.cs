@@ -52,7 +52,6 @@ public class GameController : MonoBehaviour
         //    AddPoints(0);
         Field.Instance.GenerateField();
         GenerateBackground();
-
     }
     private void SetPoints( int points)
     {
@@ -64,11 +63,11 @@ public class GameController : MonoBehaviour
         SetPoints(Points + points);
     }
     public void NextLvl()
-    {        
-        AddPoints(point);
+    {
         Level++;
+        AddPoints(point);
         pointsText.text = Points.ToString();
     }
-
     
+
 }

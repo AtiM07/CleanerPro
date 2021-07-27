@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class Cell : MonoBehaviour
 {
     public enum CellType { None = 0, Wall, Trash };
+
     public int X { get; private set; }
+
     public int Y { get; private set; }
 
     public CellType Type { get; private set; }
@@ -25,7 +27,7 @@ public class Cell : MonoBehaviour
 
     public void UpdateType(CellType type)
     {        
-        Sprite = (Type == CellType.Trash) ? TypeManager.Instance.Trash : ((Type == CellType.Wall) ? TypeManager.Instance.Wall : TypeManager.Instance.None);
+        Sprite = (type == CellType.Trash) ? TypeManager.Instance.Trash : ((type == CellType.Wall) ? TypeManager.Instance.Wall : TypeManager.Instance.None);
         GetComponent<SpriteRenderer>().sprite = Sprite;
 
         if (this.Type != type)
