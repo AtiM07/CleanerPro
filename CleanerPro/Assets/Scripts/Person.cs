@@ -51,7 +51,7 @@ public class Person : MonoBehaviour
                 if (Field.Instance.field[x, y].X == nextPos.x && Field.Instance.field[x, y].Y == nextPos.y)
                     nextCell = Field.Instance.field[nextPos.x, nextPos.y];
             }
-        }     
+        }
 
         if (nextCell.Type == Cell.CellType.Wall)
         {
@@ -59,16 +59,18 @@ public class Person : MonoBehaviour
             yield break;
         }
 
-        while (nextCell.Type != Cell.CellType.Wall)
+        while (nextCell.Type != Cell.CellType.Wall &&
+            (nextPos.x > -1 && nextPos.y > -1 && nextPos.x < Field.Instance.FieldSize && nextPos.y < Field.Instance.FieldSize))
         {
 
             yield return Clear();
             //yield return MoveCoroutine(currentPos, nextPos, direction);
             //if (nextPos.x < Field.Instance.FieldSize && nextPos.y < Field.Instance.FieldSize)
-            //{
-            Instance.transform.position = (Vector2)Field.Instance.field[nextPos.x, nextPos.y].transform.position;
+            //{           
+                Instance.transform.position = (Vector2)Field.Instance.field[nextPos.x, nextPos.y].transform.position;
                 Instance.X = Field.Instance.field[nextPos.x, nextPos.y].X;
                 Instance.Y = Field.Instance.field[nextPos.x, nextPos.y].Y;
+            
             //}
 
             currentPos += direction;
