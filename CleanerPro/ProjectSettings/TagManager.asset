@@ -12,7 +12,7 @@ TagManager:
   - 
   - Water
   - UI
-  - person
+  - 
   - 
   - 
   - 
@@ -42,6 +42,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: person
+  - name: broom
     uniqueID: 2339222865
+    locked: 0
+  - name: person
+    uniqueID: 2762010611
+    locked: 0
+  - name: panel
+    uniqueID: 3847580543
     locked: 0
