@@ -6,10 +6,9 @@ public class Field : MonoBehaviour
 {
     public static Field Instance;
 
-    private float CellSize;
-    public int FieldSize;
-    public int WallCount;
-
+    private float CellSize; //размер €чейки на поле
+    public int FieldSize; //количество €чеек по ширине/высоте 
+    public int WallCount;//количество стен на всем поле
 
     [SerializeField]
     private Cell cellPref;
@@ -29,6 +28,9 @@ public class Field : MonoBehaviour
         GenerateField();
         GeneratePerson();
     }
+    /// <summary>
+    /// —оздает поле с пустыми по умолчанию €чейками заданного размера с определенной позицией на поле
+    /// </summary>
     private void CreateField()
     {             
         field = new Cell[FieldSize,FieldSize];
@@ -49,8 +51,8 @@ public class Field : MonoBehaviour
             {
                 var cell = Instantiate(cellPref, transform, false);
                 var position = new Vector2(startX + (x * (CellSize)), startY - (y * (CellSize)));
-                cell.transform.localPosition = position;
-                cell.transform.localScale = new Vector3(CellSize, CellSize, CellSize);
+                cell.transform.position = position;
+                cell.transform.localScale = new Vector2(CellSize, CellSize);
 
                 field[x, y] = cell;
 
@@ -59,7 +61,9 @@ public class Field : MonoBehaviour
         }
 
     }
-
+    /// <summary>
+    /// √енерирует поле, заполненное определенными типами €чеек
+    /// </summary>
     public void GenerateField()
     {
         if (field == null)
@@ -72,7 +76,10 @@ public class Field : MonoBehaviour
         for (int i = 0; i < WallCount; i++)
             GenerateRandomCell();
     }
-            
+    
+    /// <summary>
+    /// ƒобавл€ет на поле €чейки-стены
+    /// </summary>
     private void GenerateRandomCell()
     {
         var emptyCells = new List<Cell>();
@@ -91,6 +98,9 @@ public class Field : MonoBehaviour
         cell.SetValue(cell.X, cell.Y, value);
     }
 
+    /// <summary>
+    /// ƒобавл€ет на поле персонажа в trash-€чейку и очищает ее
+    /// </summary>
     public void GeneratePerson()
     {       
         bool flag = true;
@@ -105,7 +115,9 @@ public class Field : MonoBehaviour
         person.SetValue(field[i, j].X, field[i, j].Y);
         field[i, j].UpdateType(Cell.CellType.None);
         var position = new Vector2(field[i, j].transform.position.x, field[i, j].transform.position.y);
-        person.transform.localPosition = (Vector2)position;
+        //person.transform.localPosition = (Vector2)position;
+
+        person.transform.position = field[i, j].transform.position;
         person.transform.localScale = new Vector2(CellSize, CellSize);
 
     }

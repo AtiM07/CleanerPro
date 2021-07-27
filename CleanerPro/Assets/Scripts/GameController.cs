@@ -37,6 +37,9 @@ public class GameController : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// √енераци€ фонового изображени€ игры
+    /// </summary>
     private void GenerateBackground()
     {
         int i;
@@ -59,10 +62,19 @@ public class GameController : MonoBehaviour
         Points = points;
         pointsText.text = Points.ToString();
     }
+
+    /// <summary>
+    /// ƒобавление очков к счету игры
+    /// </summary>
+    /// <param name="points">заработанные очки</param>
     public void AddPoints(int points)
     {
         SetPoints(Points + points);
     }
+
+    /// <summary>
+    /// ѕереход на следующий уровень
+    /// </summary>
     public void NextLvl()
     {
         Level++;

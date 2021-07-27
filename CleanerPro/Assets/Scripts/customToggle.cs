@@ -22,6 +22,10 @@ public class customToggle : MonoBehaviour
             OnSwitch(true);
     }
 
+    /// <summary>
+    /// Изменяет положение переключателя
+    /// </summary>
+    /// <param name="on"></param>
     void OnSwitch(bool on)
     {
         hadleRT.anchoredPosition = on ? handlePosition * -1 : handlePosition;

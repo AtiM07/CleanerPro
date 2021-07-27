@@ -25,6 +25,10 @@ public class Cell : MonoBehaviour
         UpdateType(type);
     }
 
+    /// <summary>
+    /// ћен€ет картинку €чейки и ее тип
+    /// </summary>
+    /// <param name="type">тип €чейки</param>
     public void UpdateType(CellType type)
     {        
         Sprite = (type == CellType.Trash) ? TypeManager.Instance.Trash : ((type == CellType.Wall) ? TypeManager.Instance.Wall : TypeManager.Instance.None);

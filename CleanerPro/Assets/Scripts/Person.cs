@@ -27,12 +27,15 @@ public class Person : MonoBehaviour
     public bool isWinner;
     private Vector2Int currentPos;
 
+    /// <summary>
+    /// ƒвижение персонажа в определенном направлении
+    /// </summary>
+    /// <param name="direction">направление движени€</param>
     public void Move(Vector2Int direction)
     {
         currentPos = new Vector2Int(Instance.X, Instance.Y);
         StartCoroutine(DirectionCoroutine(direction));
     }
-
 
     IEnumerator DirectionCoroutine(Vector2Int direction)
     {
@@ -99,7 +102,10 @@ public class Person : MonoBehaviour
     //    yield break;
     //}
 
-
+    /// <summary>
+    /// ќчищение €чеек, наход€щихс€ под персонажем
+    /// </summary>
+    /// <returns></returns>
     IEnumerator Clear()
     {
         for (int x = 0; x < Field.Instance.FieldSize; x++)
@@ -116,6 +122,11 @@ public class Person : MonoBehaviour
 
         yield return ClearCell();
     }
+
+    /// <summary>
+    /// ѕроверка, все ли €чейки на поле очищены
+    /// </summary>
+    /// <returns></returns>
     IEnumerator ClearCell()
     {
         int trashCell = 0;

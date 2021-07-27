@@ -2674,7 +2674,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f9884d40fea5eb4082e271075f99ce8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FieldSize: 4
+  FieldSize: 3
   WallCount: 3
   cellPref: {fileID: 8019417594383176863, guid: f544dd744d6a1bb44a0d04e66900e1aa, type: 3}
   rectTr: {fileID: 1398280915}
