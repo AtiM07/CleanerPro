@@ -27,11 +27,6 @@ public class GameController : MonoBehaviour
             Instance = this;
     }
 
-    private void Start()
-    {
-        StartGame();
-    }
-
     private void Update()
     {
         
@@ -76,6 +71,11 @@ public class GameController : MonoBehaviour
     /// Переход на следующий уровень
     /// </summary>
     public void NextLvl()
+    {
+        MenuPanel.Instance.animNextLvl();
+    }
+
+    public void StartnextLvl()
     {
         Level++;
         lvlTxt.text = "Уровень " + Level;

@@ -36,9 +36,9 @@ public class Field : MonoBehaviour
         field = new Cell[FieldSize,FieldSize];
 
         //float fieldWidth = FieldSize * CellSize  ;
-        float fieldWidth = (float) (Instance.rectTr.rect.width - 0.6);
+        float fieldWidth = (float) (Instance.rectTr.rect.width - 1.2);
 
-        CellSize = (float)(Instance.rectTr.rect.width - 0.6) / FieldSize;
+        CellSize = (float)(Instance.rectTr.rect.width - 1.2) / FieldSize;
 
         rectTr.sizeDelta = new Vector2(fieldWidth, fieldWidth);
 
@@ -320,4 +320,6 @@ public class Field : MonoBehaviour
                      field[x, y].UpdateType(Cell.CellType.Wall);
 
     }
+
+
 }

@@ -45,8 +45,10 @@ ScriptsOnlyBuild:
     UnityEngine.UI.dll:
     - UnityEngine.EventSystems.EventSystem
     - UnityEngine.EventSystems.StandaloneInputModule
+    - UnityEngine.UI.AspectRatioFitter
     - UnityEngine.UI.Button
     - UnityEngine.UI.CanvasScaler
+    - UnityEngine.UI.ContentSizeFitter
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.Image
     - UnityEngine.UI.Mask
@@ -94,6 +96,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 2654}
     - Class: 114
+      Script: {instanceID: 2790}
+    - Class: 114
       Script: {instanceID: 2818}
     - Class: 114
       Script: {instanceID: 2864}
@@ -105,6 +109,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 3282}
     - Class: 114
       Script: {instanceID: 3404}
+    - Class: 114
+      Script: {instanceID: 3624}
     - Class: 114
       Script: {instanceID: 3752}
     - Class: 114
@@ -140,6 +146,8 @@ ScriptsOnlyBuild:
     - Class: 223
       Script: {instanceID: 0}
     - Class: 224
+      Script: {instanceID: 0}
+    - Class: 225
       Script: {instanceID: 0}
   scriptHashData:
   - hash:
@@ -264,7 +272,7 @@ ScriptsOnlyBuild:
     className: GroupTrack
   - hash:
       serializedVersion: 2
-      Hash: 3a0080c9c5ce012c2f921160c16e8f4f
+      Hash: 156b532a2fe2fcacdfb746dbc021e4e6
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MenuPanel
