@@ -76,7 +76,7 @@ public class Field : MonoBehaviour
         //for (int i = 0; i < WallCount; i++)
         //    GenerateRandomCell();
 
-        Generate();
+        Generate4();
     }
     
     /// <summary>
@@ -148,18 +148,15 @@ public class Field : MonoBehaviour
         wayCell[startPosX, startPosY] = 1;
         //if (startPosX == 0 && startPosY == 0)
         //{
-       if (Random.Range(0, 100) % 2 ==0 )
-        {
+       
             startPosX = Random.Range(1, FieldSize - 1);
             field[startPosX, startPosY].UpdateType(Cell.CellType.Wall);
             wayCell[startPosX, startPosY] = 1;
-        }
-       else
-        {
+        
             startPosY = Random.Range(1, FieldSize - 1);
             field[startPosX, startPosY].UpdateType(Cell.CellType.Wall);
             wayCell[startPosX, startPosY] = 1;
-        }
+        
 
         restartPosition(out startPosX, out startPosY);
         //}
@@ -314,12 +311,296 @@ public class Field : MonoBehaviour
         Debug.Log("Вышли" + i);
         #endregion
 
+        wayCell[0, 0] = 1;
         for (int x = 0; x < FieldSize; x++)
             for (int y = 0; y < FieldSize; y++)
                 if (wayCell[x, y] == 0)
-                     field[x, y].UpdateType(Cell.CellType.Wall);
+                    field[x, y].UpdateType(Cell.CellType.Wall);
+
+    }
+    int checkMassive(int[,] wayCell)
+    {
+        int i = 0;
+        for (int x = 0; x < FieldSize; x++)
+            for (int y = 0; y < FieldSize; y++)
+                if (wayCell[x, y] == 0)
+                    i++;
+        return i;
+    }
+    bool CheckWayXRight(int startPosX, int startPosY)
+    {
+        bool naprX = false;
+
+        if (startPosX + 1 > -1 && startPosX + 1 < FieldSize) if (startPosY  > -1 && startPosY < FieldSize)
+                if (field[startPosX + 1, startPosY].Type != Cell.CellType.Wall)
+            {
+                naprX = true;
+            }
+                
+            
+        return naprX;
+    }
+    bool CheckWayXLeft(int startPosX, int startPosY)
+    {
+        bool naprX = false;
+        if (startPosX - 1 > -1 && startPosX - 1 < FieldSize) if (startPosY > -1 && startPosY < FieldSize)
+                if (field[startPosX - 1, startPosY].Type != Cell.CellType.Wall)
+            {
+                naprX = true;
+            }
+
+        return naprX;
+    }
+
+
+    bool CheckWayYUp(int startPosX, int startPosY)
+    {
+        bool naprY = false;         
+        if (startPosY + 1 > -1 && startPosY + 1 < FieldSize) if (startPosX > -1 && startPosX < FieldSize)
+                if (field[startPosX, startPosY + 1].Type != Cell.CellType.Wall)
+            {
+                naprY = true;
+                
+            }
+        return naprY;
+
+    }
+    bool CheckWayYDown(int startPosX, int startPosY)
+        {
+            bool naprY = false;
+
+            if (startPosY - 1 > -1 && startPosY - 1 < FieldSize) if (startPosX > -1 && startPosX < FieldSize)
+                if (field[startPosX, startPosY - 1].Type != Cell.CellType.Wall)
+                {
+                naprY = true;
+                }
+            return naprY;
+
+        }
+
+    public int MoveRightLeft(int startPosX, int startPosY, int nextX, int dir, ref int[,] wayCell)
+    {
+        for (; startPosX != nextX; startPosX += dir)
+        {
+            if (startPosX + dir > -1 && startPosX + dir < FieldSize)
+                if (field[startPosX + dir, startPosY].Type != Cell.CellType.Wall)
+                wayCell[startPosX + dir, startPosY] = 1;
+            else return startPosX;
+        }
+        if (startPosX + dir > -1 && startPosX + dir < FieldSize)
+            {
+            wayCell[startPosX+dir, startPosY] = 2;
+            field[startPosX + dir, startPosY].UpdateType(Cell.CellType.Wall);
+        }
+
+        return startPosX;
+    }
+
+    public int MoveUpDown(int startPosX, int startPosY, int nextY, int dir, ref int[,] wayCell)
+    {
+        for (; startPosY != nextY; startPosY += dir)
+        {
+            if (startPosY + dir > -1 && startPosY + dir < FieldSize)
+                if (field[startPosX, startPosY + dir].Type != Cell.CellType.Wall )
+                wayCell[startPosX, startPosY+dir] = 1;
+            else return startPosY;
+        }
+        if (startPosY + dir > -1 && startPosY + dir < FieldSize)
+        {
+            wayCell[startPosX, startPosY+dir] = 2;
+            field[startPosX, startPosY + dir].UpdateType(Cell.CellType.Wall);
+        }
+        return startPosY;
+    }
+
+    public void Generate4()
+    {
+        int[,] wayCell = new int[FieldSize, FieldSize];
+        int i, j;
+        i = 0; //Random.Range(0, FieldSize - 1);
+        j = 0; //Random.Range(0, FieldSize - 1);
+        person.SetValue(field[i, j].X, field[i, j].Y);
+        person.transform.position = field[i, j].transform.position;
+        person.transform.localScale = new Vector2(CellSize, CellSize);
+
+
+        int startPosX = person.X, startPosY = person.Y;
+        wayCell[startPosX, startPosY] = 1;
+        int a = 5000;
+        while(checkMassive(wayCell) != 0 && a >0)
+        {
+            RigthLeft(ref startPosX, ref startPosY, ref wayCell);
+            DownUp(ref startPosX, ref startPosY, ref wayCell);
+            if (startPosX == FieldSize && startPosY == FieldSize)
+            {
+                startPosX = 0;
+                startPosY = 0;
+            }
+
+            if (field[FieldSize - 2, 0].Type == Cell.CellType.Wall && field[FieldSize - 1, 1].Type == Cell.CellType.Wall)
+            {
+                wayCell[FieldSize - 1, 0] = 1;
+                field[FieldSize - 2, 0].UpdateType(Cell.CellType.Trash);
+            }
+            if (field[0, FieldSize - 2].Type == Cell.CellType.Wall && field[1, FieldSize - 1].Type == Cell.CellType.Wall)
+            {
+                wayCell[0, FieldSize - 1] = 1;
+                field[0, FieldSize - 2].UpdateType(Cell.CellType.Trash);
+            }
+            if (field[FieldSize - 1, FieldSize - 2].Type == Cell.CellType.Wall && field[FieldSize - 2, FieldSize - 1].Type == Cell.CellType.Wall)
+            {
+                wayCell[FieldSize - 1, FieldSize - 1] = 1;
+                field[FieldSize - 1, FieldSize - 2].UpdateType(Cell.CellType.Trash);
+            }
+            a --;
+        }
+
+
+        Debug.Log(a);
+        int none = 0, none1 = 0;
+
+        for (int x = 0; x < FieldSize; x++)
+        {
+            if (field[x, 0].Type == Cell.CellType.Trash)
+                none = 1;
+        }
+        if (none == 1)
+            for (int y = 0; y < FieldSize; y++)
+            {
+                if (field[0, y].Type == Cell.CellType.Trash)
+                    none1 = 1;
+                if (field[FieldSize - 1, y].Type == Cell.CellType.Trash)
+                    none1 = 1;
+
+            }
+
+        if (none1 == 1)
+            field[0, 0].UpdateType(Cell.CellType.Wall);
+
+
+        if (field[0, 1].Type == Cell.CellType.Trash && field[1, 0].Type == Cell.CellType.Trash)
+            field[0, 1].UpdateType(Cell.CellType.Trash);
+
+        if (field[0, 0].Type == Cell.CellType.Wall)
+        {
+            if (field[1, 0].Type != Cell.CellType.Wall) i = 1;
+            else
+                if (field[2, 0].Type != Cell.CellType.Wall) i = 2;
+            else
+                if (field[0, 1].Type != Cell.CellType.Wall) j = 1;
+            else
+                if (field[0, 2].Type != Cell.CellType.Wall) j = 2;
+
+            person.SetValue(field[i, j].X, field[i, j].Y);
+            person.transform.position = field[i, j].transform.position;
+        }
+
+        if (field[0, 0].Type == Cell.CellType.Wall && field[FieldSize - 1, 0].Type == Cell.CellType.Wall && field[0, FieldSize - 1].Type == Cell.CellType.Wall)
+            field[0, 0].UpdateType(Cell.CellType.Trash);
+
+        if (field[FieldSize - 1, 0].Type == Cell.CellType.Wall && field[FieldSize - 1, 1].Type == Cell.CellType.Wall)
+            field[FieldSize - 1, 1].UpdateType(Cell.CellType.Trash);
+
+
+        if (field[FieldSize-1, 0].Type == Cell.CellType.Trash && field[FieldSize-1, FieldSize - 1].Type == Cell.CellType.Trash)
+            field[FieldSize - 1, 0].UpdateType(Cell.CellType.Wall);
+        if (field[0, 0].Type == Cell.CellType.Trash && field[0, FieldSize - 1].Type == Cell.CellType.Trash)
+            field[0, FieldSize-1].UpdateType(Cell.CellType.Wall);
+
+        for (int x = 0; x < FieldSize; x++)
+        {
+            if (x != 0 && x != FieldSize - 1)
+            {
+                if (field[x + 1, 0].Type == Cell.CellType.Wall && field[x - 1, 0].Type == Cell.CellType.Wall && field[x, 1].Type == Cell.CellType.Wall)
+                    field[x - 1, 0].UpdateType(Cell.CellType.Trash);
+
+                if (field[x + 1, FieldSize - 1].Type == Cell.CellType.Wall && field[x - 1, FieldSize - 1].Type == Cell.CellType.Wall && field[x, FieldSize - 2].Type == Cell.CellType.Wall)
+                    field[x, FieldSize - 2].UpdateType(Cell.CellType.Trash);
+
+                if (field[x + 1, 0].Type == Cell.CellType.Wall && field[x - 1, 0].Type == Cell.CellType.Wall)
+                    field[x - 1, 0].UpdateType(Cell.CellType.Trash);
+
+                if (field[x + 1, FieldSize - 1].Type == Cell.CellType.Wall && field[x - 1, FieldSize - 1].Type == Cell.CellType.Wall)
+                    field[x - 1, FieldSize - 1].UpdateType(Cell.CellType.Trash);
+
+                if (field[x, 0].Type == Cell.CellType.Wall && field[x + 1, 0].Type == Cell.CellType.Wall && field[x, 1].Type == Cell.CellType.Wall)
+                    field[x, 1].UpdateType(Cell.CellType.Trash);
+                if (field[x, 0].Type == Cell.CellType.Wall && field[x - 1, 0].Type == Cell.CellType.Wall && field[x, 1].Type == Cell.CellType.Wall)
+                    field[x, 1].UpdateType(Cell.CellType.Trash);
+
+                if (field[x, FieldSize - 1].Type == Cell.CellType.Wall && field[x + 1, FieldSize - 1].Type == Cell.CellType.Wall && field[x, FieldSize - 2].Type == Cell.CellType.Wall)
+                    field[x, FieldSize - 2].UpdateType(Cell.CellType.Trash);
+                if (field[x, FieldSize - 1].Type == Cell.CellType.Wall && field[x - 1, FieldSize - 1].Type == Cell.CellType.Wall && field[x, FieldSize - 2].Type == Cell.CellType.Wall)
+                    field[x, FieldSize - 2].UpdateType(Cell.CellType.Trash);
+
+            }
+
+        }
+
+        for (int y = 0; y < FieldSize; y++)
+        {
+            if (y != 0 && y != FieldSize - 1)
+            {
+                if (field[0, y + 1].Type == Cell.CellType.Wall && field[0, y - 1].Type == Cell.CellType.Wall && field[1, y].Type == Cell.CellType.Wall)
+                    field[0, y - 1].UpdateType(Cell.CellType.Trash);
+
+                if (field[FieldSize - 1, y + 1].Type == Cell.CellType.Wall && field[FieldSize - 1, y - 1].Type == Cell.CellType.Wall && field[FieldSize - 2, y].Type == Cell.CellType.Wall)
+                    field[FieldSize - 2, y].UpdateType(Cell.CellType.Trash);
+
+                if (field[0, y + 1].Type == Cell.CellType.Wall && field[0, y - 1].Type == Cell.CellType.Wall)
+                    field[0, y - 1].UpdateType(Cell.CellType.Trash);
+
+                if (field[FieldSize - 1, y + 1].Type == Cell.CellType.Wall && field[FieldSize - 1, y - 1].Type == Cell.CellType.Wall)
+                    field[FieldSize - 1, y - 1].UpdateType(Cell.CellType.Trash);
+
+                if (field[0, y].Type == Cell.CellType.Wall && field[0, y + 1].Type == Cell.CellType.Wall && field[1, y].Type == Cell.CellType.Wall)
+                    field[1, y].UpdateType(Cell.CellType.Trash);
+
+                if (field[FieldSize - 1, y].Type == Cell.CellType.Wall && field[FieldSize - 1, y - 1].Type == Cell.CellType.Wall && field[FieldSize - 2, y].Type == Cell.CellType.Wall)
+                    field[FieldSize - 2, y].UpdateType(Cell.CellType.Trash);
+
+            }
+        }
+
+
+        wayCell[0, 0] = 1;
+    }
+
+
+        void RigthLeft(ref int startPosX,ref int startPosY, ref int[,]wayCell)
+        {
+            if (CheckWayXRight(startPosX, startPosY))
+            {
+                int posX = Random.Range(startPosX + 1, FieldSize);
+                startPosX = MoveRightLeft(startPosX, startPosY, posX, 1, ref wayCell);
+            }
+            else
+            if (CheckWayXLeft(startPosX, startPosY))
+            {
+                int posX = Random.Range(0, startPosX - 1);
+                startPosX = MoveRightLeft(startPosX, startPosY, posX, -1, ref wayCell);
+            }
+        }
+        void DownUp(ref int startPosX, ref int startPosY, ref int[,] wayCell)
+        {
+            if (CheckWayYUp(startPosX, startPosY))
+            {
+                int posY = Random.Range(startPosY + 1, FieldSize);
+                startPosY = MoveUpDown(startPosX, startPosY, posY, 1, ref wayCell);
+            }
+            else
+            if (CheckWayYDown(startPosX, startPosY))
+            {
+                int posY = Random.Range(0, startPosY - 1);
+                startPosY = MoveUpDown(startPosX, startPosY, posY, -1, ref wayCell);
+            }
+
+        }
+        //for (int x = 0; x < FieldSize; x++)
+        //    for (int y = 0; y < FieldSize; y++)
+        //        if (wayCell[x, y] == 0)
+        //             field[x, y].UpdateType(Cell.CellType.Wall);
 
     }
 
 
-}

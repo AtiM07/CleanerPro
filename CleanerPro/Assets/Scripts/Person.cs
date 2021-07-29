@@ -84,7 +84,7 @@ public class Person : MonoBehaviour
 
         isTravelling = true;
 
-        if (dirY == 0)
+        if (dirY == 0) //вправо/влево
         {
             for (int X = Instance.X + dirX; X < Field.Instance.FieldSize && X > -1; X += dirX)
             {
@@ -104,7 +104,7 @@ public class Person : MonoBehaviour
             }
         }
 
-        if (dirX == 0)
+        if (dirX == 0) //влево/вправо
         {
             for (int Y = Instance.Y + dirY; Y < Field.Instance.FieldSize && Y > -1; Y += dirY)
             {
