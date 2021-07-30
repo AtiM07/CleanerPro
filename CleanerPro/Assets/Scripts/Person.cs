@@ -55,7 +55,7 @@ public class Person : MonoBehaviour
 
     private void Update()
     {
-        Clear2();
+        StartCoroutine(Clear2());
     }
 
     public void Move(Vector2 direction)
@@ -73,7 +73,21 @@ public class Person : MonoBehaviour
         else
         if (direction == Vector2.down)
             y = -1;
+
+        Melody.Instance.PlayMelody();
         StartCoroutine(MoveCoroutine(x, y));
+    }
+    IEnumerator TravelingCoroutine(Vector2 startPos, Vector2 endPos)
+    {
+        Vector3 direction = (endPos - startPos).normalized;
+        float speed = 15;
+        while (Vector2.Distance(transform.position, endPos) > 0.1f)
+        {
+            transform.position += speed * Time.deltaTime * direction;
+            yield return null;
+        }
+
+        transform.position = endPos;
     }
 
     IEnumerator MoveCoroutine(int dirX, int dirY)
@@ -91,9 +105,10 @@ public class Person : MonoBehaviour
                 Cell nextCell = Field.Instance.field[X, Y];
                 if (nextCell.Type != Cell.CellType.Wall)
                 {
+                    yield return TravelingCoroutine(transform.position, nextCell.transform.position);
                     Instance.SetValue(X, Y);
-                    Instance.transform.position = nextCell.transform.position;
-                    Clear2();
+                    //Instance.transform.position = nextCell.transform.position;
+                    //yield return Clear2();
                 }
                 else
                 {
@@ -111,9 +126,10 @@ public class Person : MonoBehaviour
                 Cell nextCell = Field.Instance.field[X, Y];
                 if (nextCell.Type != Cell.CellType.Wall)
                 {
+                    yield return TravelingCoroutine(transform.position, nextCell.transform.position);
                     Instance.SetValue(X, Y);
-                    Instance.transform.position = nextCell.transform.position;
-                    Clear2();
+                    //Instance.transform.position = nextCell.transform.position;
+                    //yield return Clear2();
                 }
                 else
                 {
@@ -127,11 +143,13 @@ public class Person : MonoBehaviour
         isTravelling = false;
     }
 
-    void Clear2()
+    IEnumerator Clear2()
     {
         if (Field.Instance.field[X, Y].Type == Cell.CellType.Trash)
             Field.Instance.field[X, Y].UpdateType(Cell.CellType.None);
-        StartCoroutine(ClearCell());
+         StartCoroutine(ClearCell());
+
+        yield  break;
     }
 
 }

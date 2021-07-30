@@ -4,15 +4,18 @@ ScriptsOnlyBuild:
     - Cell
     - Field
     - GameController
+    - Melody
     - MenuPanel
     - Person
     - Swipe
     - TypeManager
+    - Vibration
     - customToggle
     Unity.2D.Animation.Editor.dll:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.IK.Editor.dll:
     - UnityEditor.U2D.IK.IKEditorManager
+    - UnityEditor.U2D.IK.IKGizmos
     Unity.2D.IK.Runtime.dll:
     - UnityEditor.U2D.IK.IKEditorManagerHelper
     Unity.2D.Tilemap.Editor.dll:
@@ -35,8 +38,10 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -72,6 +77,10 @@ ScriptsOnlyBuild:
     - Class: 74
       Script: {instanceID: 0}
     - Class: 81
+      Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
       Script: {instanceID: 0}
     - Class: 91
       Script: {instanceID: 0}
@@ -129,6 +138,10 @@ ScriptsOnlyBuild:
       Script: {instanceID: 5128}
     - Class: 114
       Script: {instanceID: 5358}
+    - Class: 114
+      Script: {instanceID: 32108}
+    - Class: 114
+      Script: {instanceID: 39906}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -918,7 +931,19 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: TMPro.Examples
     className: TMP_TextEventCheck
+  - hash:
+      serializedVersion: 2
+      Hash: 67016375e7eb5bf03313041d154dbdf2
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Vibration
+  - hash:
+      serializedVersion: 2
+      Hash: d3b2add88109e7f5168bc9f699e2eee5
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Melody
   platform: 13
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
-  playerPath: E:/Unity/Practice/CleanerPro/CleanerPro/v1.apk
+  playerPath: E:/Unity/Practice/CleanerPro/CleanerPro/CleanerPro.apk

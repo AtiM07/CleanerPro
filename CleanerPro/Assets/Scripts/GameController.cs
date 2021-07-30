@@ -72,6 +72,8 @@ public class GameController : MonoBehaviour
     /// </summary>
     public void NextLvl()
     {
+
+        Vibration.Instance.PlayVibration();
         MenuPanel.Instance.animNextLvl();
     }
 
@@ -82,6 +84,7 @@ public class GameController : MonoBehaviour
         AddPoints(point);
         pointsText.text = Points.ToString();
         StartGame();
+
     }
     
 

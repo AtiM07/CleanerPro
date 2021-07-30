@@ -7,7 +7,7 @@ public class customToggle : MonoBehaviour
 {
     [SerializeField] RectTransform hadleRT;
 
-    Toggle toggle;
+        Toggle toggle;
 
     Vector2 handlePosition;
 
@@ -28,7 +28,7 @@ public class customToggle : MonoBehaviour
     /// <param name="on"></param>
     void OnSwitch(bool on)
     {
-        hadleRT.anchoredPosition = on ? handlePosition * -1 : handlePosition;
+        hadleRT.anchoredPosition = on ? handlePosition * -1 : handlePosition;        
     }
 
     void OnDestroy()
